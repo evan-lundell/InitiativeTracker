@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,12 +40,26 @@ namespace InitiativeTracker
 
         private void ViewModel_LoadTriggered(object sender, SaveEventArgs e)
         {
-            throw new NotImplementedException();
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.DefaultExt = ".json";
+            dialog.Filter = "JSON File|*.json";
+            var result = dialog.ShowDialog();
+            if (result.HasValue && result.Value && File.Exists(dialog.FileName))
+            {
+                e.SaveData = File.ReadAllText(dialog.FileName);
+            }
         }
 
         private void ViewModel_SaveTriggered(object sender, SaveEventArgs e)
         {
-            throw new NotImplementedException();
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.DefaultExt = ".json";
+            dialog.Filter = "JSON File|*.json";
+            var result = dialog.ShowDialog();
+            if (result.HasValue && result.Value)
+            {
+                File.WriteAllText(dialog.FileName, e.SaveData);
+            }
         }
     }
 }

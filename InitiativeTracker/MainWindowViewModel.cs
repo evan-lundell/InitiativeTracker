@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -84,15 +85,20 @@ namespace InitiativeTracker
 
         private void Save()
         {
-            string initiativeOrderData = "";
+            string initiativeOrderData = JsonConvert.SerializeObject(Combatants);
             SaveTriggered?.Invoke(this, new SaveEventArgs(initiativeOrderData));
         }
 
         private void Load()
         {
+            Combatants.Clear();
             var eventArgs = new SaveEventArgs();
             LoadTriggered?.Invoke(this, eventArgs);
-
+            foreach (Combatant combatant in JsonConvert.DeserializeObject<IEnumerable<Combatant>>(eventArgs.SaveData))
+            {
+                Combatants.Add(combatant);
+            }
+            Combatants.Sort();
         }
 
         private void Next()
