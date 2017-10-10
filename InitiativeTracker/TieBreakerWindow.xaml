@@ -1,0 +1,30 @@
+﻿<Window x:Class="InitiativeTracker.TieBreakerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InitiativeTracker"
+        mc:Ignorable="d"
+        Title="TieBreakerWindow" Height="300" Width="200" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <ListView Grid.Row="0" Margin="5" ItemsSource="{Binding Path=Combatants}" DisplayMemberPath="Name" SelectionMode="Single" SelectedItem="{Binding Path=SelectedCombatant}"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Button Margin="5" Grid.Column="0" Command="{Binding Path=MoveUpCommand}">Move Up</Button>
+            <Button Margin="5" Grid.Column="1" Command="{Binding Path=MoveDownCommand}">Move Down</Button>
+            <Button Margin="5" Grid.Row="1" Grid.Column="1" Click="Button_Click">OK</Button>
+        </Grid>
+        
+    </Grid>
+</Window>

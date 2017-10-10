@@ -35,7 +35,9 @@ namespace InitiativeTracker
 
         private void ViewModel_InitiativeTied(object sender, TieInitiativeEventArgs e)
         {
-            throw new NotImplementedException();
+            TieBreakerWindow tieBreakerWindow = new TieBreakerWindow();
+            tieBreakerWindow.DataContext = new TieBreakerWindowViewModel(e.Combatants);
+            tieBreakerWindow.ShowDialog();
         }
 
         private void ViewModel_LoadTriggered(object sender, SaveEventArgs e)

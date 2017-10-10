@@ -8,7 +8,7 @@ namespace InitiativeTracker
 {
     public class TieInitiativeEventArgs : EventArgs
     {
-        private IEnumerable<Combatant> Combatants { get; set; }
+        public IEnumerable<Combatant> Combatants { get; set; }
 
         public TieInitiativeEventArgs(IEnumerable<Combatant> combatants)
         {

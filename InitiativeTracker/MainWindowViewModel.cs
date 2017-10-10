@@ -66,9 +66,11 @@ namespace InitiativeTracker
             }
 
             bool initiativeTied = Combatants.Any(c => c.Initiative == initiative);
-            Combatants.Add(new Combatant(Name, initiative, Combatants.Count == 0));
+            var newCombatant = new Combatant(Name, initiative, Combatants.Count == 0);
+            Combatants.Add(newCombatant);
             if (initiativeTied && InitiativeTied != null)
             {
+                newCombatant.TieBreaker = Combatants.Max(c => c.TieBreaker) + 1;
                 InitiativeTied(this, new TieInitiativeEventArgs(Combatants.Where(c => c.Initiative == initiative)));
             }
             Combatants.Sort();
