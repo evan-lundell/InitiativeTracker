@@ -20,9 +20,30 @@ namespace InitiativeTracker
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
+            var viewModel = new MainWindowViewModel();
+            viewModel.SaveTriggered += ViewModel_SaveTriggered;
+            viewModel.LoadTriggered += ViewModel_LoadTriggered;
+            viewModel.InitiativeTied += ViewModel_InitiativeTied;
+            DataContext = viewModel;
+        }
+
+        private void ViewModel_InitiativeTied(object sender, TieInitiativeEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ViewModel_LoadTriggered(object sender, SaveEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ViewModel_SaveTriggered(object sender, SaveEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

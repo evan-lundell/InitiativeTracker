@@ -5,8 +5,71 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitiativeTracker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        Title="MainWindow" Height="400" Width="250">
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="5,0,0,5"/>
+            <Setter Property="MinWidth" Value="100" />
+        </Style>
+        <Style x:Key="Active" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="Background" Value="Yellow" />
+        </Style>
+    </Window.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0">Name:</TextBlock>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=Name}" />
+            <TextBlock Grid.Row="1" Grid.Column="0">Initiative:</TextBlock>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=Initiative}" />
+            <Button Grid.Row="2" Grid.Column="1" Command="{Binding Path=AddCommand}" Margin="5,0,0,0">Add</Button>
+        </Grid>
+        <ListView Grid.Row="1" Margin="0,5" ItemsSource="{Binding Path=Combatants}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=IsActive}" Value="True">
+                            <Setter Property="Background" Value="Yellow" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0}: {1}">
+                                <Binding Path="Initiative" />
+                                <Binding Path="Name" />
+                                <Binding Path="IsActive" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Command="{Binding Path=PreviousCommand}" Grid.Column="0">Previous</Button>
+            <Button Command="{Binding Path=NextCommand}" Grid.Column="1">Next</Button>
+            <Button Command="{Binding Path=ResetCommand}" Grid.Column="2">Reset</Button>
+        </Grid>
     </Grid>
 </Window>
