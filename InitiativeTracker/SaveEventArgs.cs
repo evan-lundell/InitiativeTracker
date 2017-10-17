@@ -8,13 +8,13 @@ namespace InitiativeTracker
 {
     public class SaveEventArgs : EventArgs
     {
-        public string SaveData { get; set; }
+        public IEnumerable<Combatant> SaveData { get; set; }
 
         public SaveEventArgs()
         {
         }
 
-        public SaveEventArgs(string saveData)
+        public SaveEventArgs(IEnumerable<Combatant> saveData)
         {
             SaveData = saveData;
         }

@@ -87,8 +87,7 @@ namespace InitiativeTracker
 
         private void Save()
         {
-            string initiativeOrderData = JsonConvert.SerializeObject(Combatants);
-            SaveTriggered?.Invoke(this, new SaveEventArgs(initiativeOrderData));
+            SaveTriggered?.Invoke(this, new SaveEventArgs(Combatants));
         }
 
         private void Load()
@@ -96,7 +95,7 @@ namespace InitiativeTracker
             Combatants.Clear();
             var eventArgs = new SaveEventArgs();
             LoadTriggered?.Invoke(this, eventArgs);
-            foreach (Combatant combatant in JsonConvert.DeserializeObject<IEnumerable<Combatant>>(eventArgs.SaveData))
+            foreach (Combatant combatant in eventArgs.SaveData)
             {
                 Combatants.Add(combatant);
             }

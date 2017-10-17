@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -42,25 +43,40 @@ namespace InitiativeTracker
 
         private void ViewModel_LoadTriggered(object sender, SaveEventArgs e)
         {
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.DefaultExt = ".json";
-            dialog.Filter = "JSON File|*.json";
-            var result = dialog.ShowDialog();
-            if (result.HasValue && result.Value && File.Exists(dialog.FileName))
+            try
             {
-                e.SaveData = File.ReadAllText(dialog.FileName);
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.DefaultExt = ".json";
+                dialog.Filter = "JSON File|*.json";
+                var result = dialog.ShowDialog();
+                if (result.HasValue && result.Value && File.Exists(dialog.FileName))
+                {
+                    e.SaveData = JsonConvert.DeserializeObject<IEnumerable<Combatant>>(File.ReadAllText(dialog.FileName));
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
 
         private void ViewModel_SaveTriggered(object sender, SaveEventArgs e)
         {
-            SaveFileDialog dialog = new SaveFileDialog();
-            dialog.DefaultExt = ".json";
-            dialog.Filter = "JSON File|*.json";
-            var result = dialog.ShowDialog();
-            if (result.HasValue && result.Value)
+            try
             {
-                File.WriteAllText(dialog.FileName, e.SaveData);
+                string serializedSaveData = JsonConvert.SerializeObject(e.SaveData);
+                SaveFileDialog dialog = new SaveFileDialog();
+                dialog.DefaultExt = ".json";
+                dialog.Filter = "JSON File|*.json";
+                var result = dialog.ShowDialog();
+                if (result.HasValue && result.Value)
+                {
+                    File.WriteAllText(dialog.FileName, serializedSaveData);
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }
