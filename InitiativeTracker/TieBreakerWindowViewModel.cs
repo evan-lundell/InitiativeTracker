@@ -41,7 +41,7 @@ namespace InitiativeTracker
                 previousCombatant.TieBreaker++;
                 SelectedCombatant.TieBreaker--;
             }
-            Combatants.SortByTieBreaker();
+            Combatants.Sort();
         }
 
         private void MoveDown()
@@ -52,7 +52,7 @@ namespace InitiativeTracker
                 nextCombatant.TieBreaker--;
                 SelectedCombatant.TieBreaker++;
             }
-            Combatants.SortByTieBreaker();
+            Combatants.Sort();
         }
     }
 }

@@ -26,23 +26,5 @@ namespace InitiativeTracker
                 }
             }
         }
-
-        public static void SortByTieBreaker(this ObservableCollection<Combatant> combatants)
-        {
-            for (int counter = 0; counter < combatants.Count - 1; counter++)
-            {
-                int index = counter + 1;
-                while (index > 0)
-                {
-                    if (combatants[index - 1].TieBreaker > combatants[index].TieBreaker)
-                    {
-                        Combatant temp = combatants[index - 1];
-                        combatants[index - 1] = combatants[index];
-                        combatants[index] = temp;
-                    }
-                    index--;
-                }
-            }
-        }
     }
 }
