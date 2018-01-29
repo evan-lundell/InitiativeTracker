@@ -71,7 +71,7 @@ namespace InitiativeTracker
             if (initiativeTied && InitiativeTied != null)
             {
                 newCombatant.TieBreaker = Combatants.Max(c => c.TieBreaker) + 1;
-                InitiativeTied(this, new TieInitiativeEventArgs(Combatants.Where(c => c.Initiative == initiative)));
+                InitiativeTied?.Invoke(this, new TieInitiativeEventArgs(Combatants.Where(c => c.Initiative == initiative)));
             }
             Combatants.Sort();
             Name = null;
